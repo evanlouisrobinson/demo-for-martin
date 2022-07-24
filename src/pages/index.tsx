@@ -1,67 +1,61 @@
-import { useState } from 'react';
-import Head from "next/head"
 import type { NextPage } from "next";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-
+import Link from "next/link";
+import { Box, Card, Container, Typography } from "@mui/material";
 import { useAppContext } from "../context/state";
-import FilmsPage from "./FilmsPage";
-import HomePage from "./HomePage";
-import PeoplePage from "./PeoplePage";
-import PlanetsPage from "./PlanetsPage";
-import SpeciesPage from "./SpeciesPage";
-import StarshipsPage from './StarshipsPage';
-import VehiclesPage from './VehiclesPage';
+import Layout from "../styles/Layout";
 
+type APICardProps = {
+  name: string
+  description: string
+  url: string
+};
 
-const Main: NextPage = () => {
+const HomePage: NextPage = () => {
   const state = useAppContext();
-  
-  const switchPage = () => {
-    switch (state?.currentPage) {
-      case 'films':
-        return <FilmsPage />;
-      case 'people':
-        return <PeoplePage />;
-      case 'planets':
-        return <PlanetsPage />;
-      case 'species':
-        return <SpeciesPage />;
-      case 'starships':
-        return <StarshipsPage />;
-      case 'vehicles':
-        return <VehiclesPage />;
-      case 'home':
-      default:
-        return <HomePage />;
-    }
-  }
-
   return (
-    <>
-      <CssBaseline />
-      <Head>
-        <title>My Star Wars API App</title>
-        <meta name="description" content="Created by Evan Robinson" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <Toolbar>
+    <Layout>
+      <Container className="flex flex-col items-center justify-center mx-auto p-4">
+        <Typography variant="h1" className="text-5xl md:text-[5rem] leading-normal font-extrabold text-yellow-400">
+          Star Wars API
+        </Typography>
+        <Box className="grid gap-3 pt-3 mt-3 text-center md:grid-cols-2 lg:w-2/3">
           {
-            ["home"].concat((state?.pageNames || [])).map((item, index) => (
-              <Button key={index} onClick={() => state?.setCurrentPage(item)}>
-                <Typography className="capitalize">{item}</Typography>
-              </Button>
+            state?.pages.slice(1).map((item, index) => (
+              <APICard
+                key={index}
+                name={item.name}
+                description={`The ${item.name} of Star Wars`}
+                url={item.url}
+              />
             ))
           }
-        </Toolbar>
-        {switchPage()}
-      </main>
-    </>
+        </Box>
+        <Typography className="pt-6 text-2xl text-yellow-400 flex justify-center items-center">
+          Hello from Tatooine
+        </Typography>
+      </Container>
+    </Layout>
   );
 };
 
-export default Main;
+
+const APICard = ({
+  name,
+  description,
+  url
+}: APICardProps) => {
+  const state = useAppContext();
+  return (
+    <Link href={url}>
+      <Card 
+        variant="outlined"
+        className="flex flex-col justify-center p-6 border-2 border-gray-500 rounded motion-safe:hover:border-yellow-400"
+      >
+        <Typography className="text-4xl pb-6 font-bold uppercase text-gray-200">{name}</Typography>
+        <Typography className="text-xl text-gray-300">{description}</Typography>
+      </Card>
+    </Link>
+  );
+};
+
+export default HomePage;
