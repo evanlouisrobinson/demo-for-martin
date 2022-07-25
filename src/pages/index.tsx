@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { Box, Card, Container, Typography } from "@mui/material";
 import { useAppContext } from "../context/state";
-import Layout from "../styles/Layout";
 
 type APICardProps = {
   name: string
@@ -13,28 +12,26 @@ type APICardProps = {
 const HomePage: NextPage = () => {
   const state = useAppContext();
   return (
-    <Layout>
-      <Container className="flex flex-col items-center justify-center mx-auto p-4">
-        <Typography variant="h1" className="text-5xl md:text-[5rem] leading-normal font-extrabold text-yellow-400">
-          Star Wars API
-        </Typography>
-        <Box className="grid gap-3 pt-3 mt-3 text-center md:grid-cols-2 lg:w-2/3">
-          {
-            state?.pages.slice(1).map((item, index) => (
-              <APICard
-                key={index}
-                name={item.name}
-                description={`The ${item.name} of Star Wars`}
-                url={item.url}
-              />
-            ))
-          }
-        </Box>
-        <Typography className="pt-6 text-2xl text-yellow-400 flex justify-center items-center">
-          Hello from Tatooine
-        </Typography>
-      </Container>
-    </Layout>
+    <Container className="flex flex-col items-center justify-center mx-auto p-4">
+      <Typography variant="h1" className="text-5xl md:text-[5rem] leading-normal font-extrabold text-yellow-400">
+        Star Wars API
+      </Typography>
+      <Box className="grid gap-3 pt-3 mt-3 text-center md:grid-cols-2 lg:w-2/3">
+        {
+          state?.pages.slice(1).map((item, index) => (
+            <APICard
+              key={index}
+              name={item.name}
+              description={`The ${item.name} of Star Wars`}
+              url={item.url}
+            />
+          ))
+        }
+      </Box>
+      <Typography className="pt-6 text-2xl text-yellow-400 flex justify-center items-center">
+        Hello from Tatooine
+      </Typography>
+    </Container>
   );
 };
 

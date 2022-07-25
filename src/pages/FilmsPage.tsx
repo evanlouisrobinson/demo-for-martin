@@ -1,5 +1,4 @@
 import { trpc } from "../utils/trpc";
-import Layout from "../styles/Layout";
 import { Accordion, AccordionDetails, AccordionSummary, Card, Container, Typography } from "@mui/material";
 
 const FilmsPage = () => {
@@ -7,15 +6,12 @@ const FilmsPage = () => {
   
   if (films.isLoading) {
     return (
-      <Layout>
-        <Typography className="pt-6 text-2xl text-yellow-400 flex justify-center items-center">
-          Loading...
-        </Typography>
-      </Layout>
+      <Typography className="pt-6 text-2xl text-yellow-400 flex justify-center items-center">
+        Loading...
+      </Typography>
     )
   }
   return (
-    <Layout>
       <Container className="flex flex-col items-center justify-center mx-auto p-4">
         <Typography variant="h1" className="text-5xl md:text-[5rem] leading-normal font-extrabold text-yellow-400">
           Films of Star Wars
@@ -38,7 +34,6 @@ const FilmsPage = () => {
           Hello from Tatooine
         </Typography>
       </Container>
-    </Layout>
   )
 };
 

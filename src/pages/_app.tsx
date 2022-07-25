@@ -7,8 +7,9 @@ import { SessionProvider } from "next-auth/react";
 import { AppWrapper } from "../context/state";
 
 import "../styles/globals.css";
-import { ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import theme from "../styles/theme";
+import Layout from "../components/Layout";
 
 const MyApp: AppType = ({
   Component,
@@ -17,9 +18,13 @@ const MyApp: AppType = ({
   return (
     <AppWrapper>
       <SessionProvider session={session}>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </StyledEngineProvider>
       </SessionProvider>
     </AppWrapper>
   );
