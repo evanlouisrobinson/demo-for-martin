@@ -1,6 +1,3 @@
-import { SeparatorConfig } from "tailwindcss/types/config";
-import { StringValidation } from "zod";
-
 export type Character = {
   name: string;
   birth_year: string;
